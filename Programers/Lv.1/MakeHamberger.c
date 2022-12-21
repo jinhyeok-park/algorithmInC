@@ -27,8 +27,7 @@ int solution(int ingredient[], size_t ingredient_len) {
             //pop
             for (int i = 0; i < 4; i++)
                 stackI--;
-            answer++;
-        }
+            answer++;        }
     }
     return answer;
 }
