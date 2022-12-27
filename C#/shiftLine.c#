@@ -1,0 +1,241 @@
+/// <summary>
+        /// 직선을 그리고 난뒤에 shift를 누른상태에서 선의 길이를 조정하면 원래선분의 백터방향으로 고정하여 길이값만 변화되게끔한 좌표값을 반환한다.
+        /// </summary>
+        /// <param name="vecStartX">선분 벡터가 시작하는점 (선분의 첫번째점 mouse down) 의 X 좌표</param>
+        /// <param name="vecStartY">선분 벡터가 시작하는점 (선분의 첫번째점 mouse up ) 의 Y 좌표</param>
+        /// <param name="vecEndX">선분 벡터가 끝나는 점 (선분의 두번째 점) 의 x 좌표</param>
+        /// <param name="vecEndY">선분 벡터가 끝나는 점 (선분의 두번째 점) 의 Y 좌표</param>
+        /// <param name="cursorPointMinusClickedPoint_X">선분의 끝점부터 마우스의 위치를 뺀 곳의 x 좌표</param>
+        /// <param name="cursorPointMinusClicedPoint_Y">선분의 끝점부터 마우스의 위치를 뺀 곳의 y 좌표</param>
+        /// <param name="curCursorPosition_X">현재 커서의 x 좌표</param>
+        /// <param name="curCUrsorPosition_Y">현재 커서의 y 좌표 </param>
+        /// <param name="finalX1">최종적으로 변환된 x 좌표</param>
+        /// <param name="finalY1">최종적으로 변환된 y 좌표</param>
+public void ShiftLine(float vecStartX, float vecStartY, float vecEndX, float vecEndY, float cursorPointMinusClickedPoint_X, float cursorPointMinusClicedPoint_Y, float curCursorPosition_X, float curCUrsorPosition_Y,ref float finalX1,ref float finalY1)
+        {
+            //추가적으로 각도가 정각에 위치한다면 그런값에대해선 추가 로직이 필요함 각도가 0 90 180 270 인경우에대해선 강제로 값을 보정해준다. 이유 아래에서 사분면의 정확성을위해서 and로 조건
+            // 즉 90 도 방향으로 증가 감소하는 경우 xy 둘중 한가지 값이 증가하거나 감소하지 않게된다. 각도값으로 보정치를 제시 
+            bool positive = false;
+            bool negative = false;
+            bool standard_X = false;
+            bool standard_Y = false;
+
+            double Xdifference = vecEndX - vecStartX; // 벡터의 방향은 종점 - 시점 
+            double Ydifference = vecEndY - vecStartY;
+            float nPointX = 0;
+            float nPointy = 0;
+
+            Vector2 linevector = new Vector2(Xdifference, Ydifference);
+            linevector.Normalize();
+
+            double lineLengthAfter = Math.Sqrt(Math.Pow(Math.Abs(cursorPointMinusClickedPoint_X), 2) + Math.Pow(Math.Abs(cursorPointMinusClicedPoint_Y), 2));
+
+            nPointX = (float)linevector.X * (float)lineLengthAfter;
+            nPointy = (float)linevector.Y * (float)lineLengthAfter;
+
+            double quadrant_Angle = Shapes_Util.GetAngleBetweenPoints(new PointF(vecEndX, vecEndY), new PointF(vecStartX, vecStartY));
+
+            double east_Start = 179;
+            double east_End = 181;
+            double north_Start = 269;
+            double north_End = 271;
+            double west_start = 359;
+            double west_End = 1;
+            double wests = 0;
+            double weste = 360;
+            double south_start = 89;
+            double south_end = 91;
+            //double south_start = 50;
+            //double south_end = 120;
+            // 우선적으로 0 90 180 270 도에 대한 값 보정치 해당 값에 들어오는 경우 수직선으로 고정 
+            if (east_Start < quadrant_Angle && quadrant_Angle < east_End) //동쪽 고정 
+            {
+                finalX1 = vecEndX + cursorPointMinusClickedPoint_X; // 값의 변화량을 넣어준다. 
+                finalY1 = vecEndY;
+            }
+            else if (north_Start < quadrant_Angle && quadrant_Angle < north_End) // 북쪽 
+            {
+                finalX1 = vecEndX ; // 값의 변화량을 넣어준다. 
+                finalY1 = vecEndY + cursorPointMinusClicedPoint_Y;
+            }
+            else if ((west_start < quadrant_Angle && quadrant_Angle < weste) || (quadrant_Angle > wests && quadrant_Angle < west_End))// 서쪽
+            {
+                finalX1 = vecEndX + cursorPointMinusClickedPoint_X; // 값의 변화량을 넣어준다. 
+                finalY1 = vecEndY;
+            }
+            else if(south_start < quadrant_Angle && quadrant_Angle < south_end)
+            {
+                finalX1 = vecEndX; 
+                finalY1 = vecEndY + cursorPointMinusClicedPoint_Y;
+            }
+            //직각 라인 체크 이후 사분면 라인으로 이동 
+            else if (vecStartX < vecEndX && vecStartY > vecEndY)//1사분면
+            {
+                if (vecEndX < curCursorPosition_X && vecEndY > curCUrsorPosition_Y)  // 1사분면 선분증가시에 
+                {
+                    finalX1 = vecEndX + nPointX;
+                    finalY1 = vecEndY + nPointy;
+                }
+                else if(vecEndX > curCursorPosition_X && curCUrsorPosition_Y < vecEndY)// 2사분면 선분 이 감소해야한다 X 값의 변화량에 따라 선분감소  
+                {
+                    //X 의 좌표를 받아와 y의 길이는 1천이 되게끔 (받아올 X , 원래 좌표Y),(받아올 x , 완래좌표 +1000) o
+                    // 두 점으로 라인을 생성 하여 line intersection 수행 기존 선분과의 접점 좌표 o
+                    //접점좌표 와 원래 선분의 끝점 에 관하여 벡터와 라인길이 산출 
+                    // 생성한  크기값을 원래 선분에 뺄샘하여 이동한 거리 최종산출
+                    standard_X = true;
+                    positive = true;
+                    lineAccurateAssist(curCursorPosition_X, curCUrsorPosition_Y, positive,negative,standard_X,standard_Y, vecStartX, vecStartY, vecEndX, vecEndY, ref finalX1, ref finalY1);
+                }
+                else if (vecEndX > curCursorPosition_X && vecEndY < curCUrsorPosition_Y) //3사분면  선분 감소시에 
+                {
+                    finalX1 = vecEndX - nPointX;
+                    finalY1 = vecEndY - nPointy;
+                }
+                else if(curCursorPosition_X > vecEndX && curCUrsorPosition_Y > vecEndY)// 4사분면 선분감소 
+                {
+                    negative = true;
+                    standard_Y = true;
+                    lineAccurateAssist(curCursorPosition_X, curCUrsorPosition_Y, positive, negative, standard_X, standard_Y, vecStartX, vecStartY, vecEndX, vecEndY, ref finalX1, ref finalY1);
+                }
+            }
+            else if (vecStartX > vecEndX && vecStartY > vecEndY) // 2사분면 ok 
+            {
+                if (vecEndX < curCursorPosition_X && vecEndY < curCUrsorPosition_Y) // 4사분면 감소식 
+                {
+                    finalX1 = vecEndX - nPointX;
+                    finalY1 = vecEndY - nPointy;
+                }
+                else if(curCursorPosition_X > vecEndX && curCUrsorPosition_Y < vecEndY)//1사분면
+                {
+                    positive = true;
+                    standard_X = true;
+                    lineAccurateAssist(curCursorPosition_X, curCUrsorPosition_Y, positive, negative, standard_X, standard_Y, vecStartX, vecStartY, vecEndX, vecEndY, ref finalX1, ref finalY1);
+                }
+                else if(curCursorPosition_X < vecEndX && curCUrsorPosition_Y > vecEndY)//3사분면
+                {
+                    positive = true;
+                    standard_Y = true ;
+                    lineAccurateAssist(curCursorPosition_X, curCUrsorPosition_Y, positive, negative, standard_X, standard_Y, vecStartX, vecStartY, vecEndX, vecEndY, ref finalX1, ref finalY1);
+                }
+                else if (vecEndX > curCursorPosition_X || vecEndY > curCUrsorPosition_Y)
+                {
+                    finalX1 = vecEndX + nPointX;
+                    finalY1 = vecEndY + nPointy;
+                }
+            }
+            else if (vecStartX > vecEndX && vecStartY < vecEndY)// 3사분면
+            {
+                if (vecEndX > curCursorPosition_X && vecEndY < curCUrsorPosition_Y)  // 선분증가시에  3사분면
+                {
+                    finalX1 = vecEndX + nPointX;
+                    finalY1 = vecEndY + nPointy;
+                }
+                else if(curCursorPosition_X < vecEndX && curCUrsorPosition_Y < vecEndY)// 2사분면 
+                {
+                    positive = true;
+                    standard_Y = true;
+                    lineAccurateAssist(curCursorPosition_X, curCUrsorPosition_Y, positive, negative, standard_X, standard_Y, vecStartX, vecStartY, vecEndX, vecEndY, ref finalX1, ref finalY1);
+                }
+                else if (vecEndX < curCursorPosition_X && vecEndY > curCUrsorPosition_Y) // 선분 감소시에 1사분면 
+                {
+                    finalX1 = vecEndX - nPointX;
+                    finalY1 = vecEndY - nPointy;
+                }
+                else if(curCursorPosition_X > vecEndX && curCUrsorPosition_Y > vecEndY)
+                {
+                    negative = true;
+                    standard_X = true;
+                    lineAccurateAssist(curCursorPosition_X, curCUrsorPosition_Y, positive, negative, standard_X, standard_Y, vecStartX, vecStartY, vecEndX, vecEndY, ref finalX1, ref finalY1);
+                }
+            }
+            else if (vecStartX < vecEndX && vecStartY < vecEndY) // 4사분면  ok
+            {
+                if (vecEndX < curCursorPosition_X && vecEndY < curCUrsorPosition_Y) // 제 4 사분면에 해당되는 조건식 
+                {
+                    finalX1 = vecEndX + nPointX;
+                    finalY1 = vecEndY + nPointy;
+                }
+                else if(curCursorPosition_X > vecEndX && curCUrsorPosition_Y < vecEndY)//1사분면
+                {
+                    negative = true ;
+                    standard_Y = true;
+                    lineAccurateAssist(curCursorPosition_X, curCUrsorPosition_Y, positive, negative, standard_X, standard_Y, vecStartX, vecStartY, vecEndX, vecEndY, ref finalX1, ref finalY1);
+                }
+                else if(curCursorPosition_X < vecEndX && curCUrsorPosition_Y > vecEndY)
+                {
+                    negative = true;
+                    standard_X = true;
+                    lineAccurateAssist(curCursorPosition_X, curCUrsorPosition_Y, positive, negative, standard_X, standard_Y, vecStartX, vecStartY, vecEndX, vecEndY, ref finalX1, ref finalY1);
+                }
+                else if (vecEndX > curCursorPosition_X && vecEndY > curCUrsorPosition_Y)
+                {
+                    finalX1 = vecEndX - nPointX;
+                    finalY1 = vecEndY - nPointy;
+                }
+            }
+        }
+        public void GetIntersectPoint(double bp1_X, double bp1_Y, double bp2_X, double bp2_Y, double ap1_X, double ap1_Y, double ap2_x, double ap2_Y, ref double crossPoint_X, ref double crossPoint_Y)
+        {
+            double t = 0;
+            double s = 0;
+            double under = (bp2_Y - bp1_Y) * (ap2_x - ap1_X) - (bp2_X - bp1_X) * (ap2_Y - ap1_Y);
+            if (under == 0)
+            { }
+
+            double _t = (bp2_X - bp1_X) * (ap1_Y - bp1_Y) - (bp2_Y - bp1_Y) * (ap1_X - bp1_X);
+            double _s = (ap2_x - ap1_X) * (ap1_Y - bp1_Y) - (ap2_Y - ap1_Y) * (ap1_X - bp1_X);
+
+            t = _t / under;
+            s = _s / under;
+
+            if (t < 0.0 || t > 1.0 || s < 0.0 || s > 1.0)
+            { }
+            if (_t == 0 && _s == 0)
+            { }
+
+            crossPoint_X = ap1_X + t * (double)(ap2_x - ap1_X);
+            crossPoint_Y = ap1_Y + t * (double)(ap2_Y - ap1_Y);
+
+        }
+        public void lineAccurateAssist(double cursorPoint_X,double cursorPoint_Y, bool positive,bool negative,bool standard_X,bool standard_Y,float vecStartX, float vecStartY, float vecEndX, float vecEndY, ref float finalX1, ref float finalY1)
+        {
+            double crossPoint_X = 0;
+            double crossPoint_Y = 0;
+            double bp2_X = 0;
+            double bp2_Y = 0;
+            double bp1_X = cursorPoint_X;
+            double bp1_Y = cursorPoint_Y;
+
+            if (positive && standard_X)
+            {
+                bp2_X = cursorPoint_X;
+                bp2_Y = cursorPoint_Y + 10000;
+            }
+            else if(positive && standard_Y)
+            {
+                bp2_X = cursorPoint_X + 10000;
+                bp2_Y = cursorPoint_Y;
+            }
+            else if (negative && standard_Y)
+            {
+                bp2_X = cursorPoint_X - 10000;
+                bp2_Y = cursorPoint_Y;
+            }
+            else if (negative && standard_X)
+            {
+                bp2_X = cursorPoint_X;
+                bp2_Y = cursorPoint_Y - 10000;
+            }
+            //기준이 x 로 바뀌었을떄의 식을 하나 더 짜줘야한다. 
+            GetIntersectPoint(bp1_X, bp1_Y, bp2_X, bp2_Y, vecStartX, vecStartY, vecEndX, vecEndY, ref crossPoint_X, ref crossPoint_Y);
+
+            double difflength = Math.Sqrt(Math.Pow(Math.Abs(crossPoint_X - vecEndX), 2) + Math.Pow(Math.Abs(crossPoint_Y - vecEndY), 2));
+            Vector2 vecline = new Vector2(crossPoint_X - vecEndX, crossPoint_Y - vecEndY);
+            vecline.Normalize();
+
+            float diffPoint_X = (float)difflength * (float)vecline.X;
+            float diffPoint_Y = (float)difflength * (float)vecline.Y;
+
+            finalX1 = vecEndX + diffPoint_X;
+            finalY1 = vecEndY + diffPoint_Y;
+        }
