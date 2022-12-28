@@ -1,0 +1,6 @@
+Credentials cache: API:9B6423DB-B431-4148-92E1-926E8FC1A041
+        Principal: jinhyepa@42SEOUL.KR
+
+  Issued                Expires               Principal
+Aug 23 19:07:22 2022  Aug 24 05:07:22 2022  krbtgt/42SEOUL.KR@42SEOUL.KR
+Aug 23 19:07:23 2022  Aug 24 05:07:22 2022  HTTP/student-storage.42seoul.kr@42SEOUL.KR
