@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:41 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/03/15 19:48:14 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/03/15 21:01:05 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void			*ft_calloc(size_t count, size_t size);
 char			*ft_strdup(const char *src);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
-//char			*ft_strtrim(char const *s1, char const *set);
+char			*ft_strtrim(char const *s1, char const *set);
 
 #endif
