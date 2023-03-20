@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:58:35 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/03/16 11:55:31 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/03/20 20:50:14 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void	*p;
 
-	if (!size)
+	if (count != 0 && size * count / count != size)
 		return (0);
 	p = (void *)malloc(size * count);
 	if (!p)

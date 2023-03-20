@@ -1,18 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhyeok <jinhyeok@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 15:44:50 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/03/20 15:16:57 by jinhyeok         ###   ########.fr       */
+/*   Created: 2023/03/17 10:39:55 by jinhyeok          #+#    #+#             */
+/*   Updated: 2023/03/17 11:25:06 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
-int	ft_isalnum(int c)
+void	ft_itern(long long num, int fd)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	if (num > 9)
+		ft_itern(num / 10, fd);
+	write (fd, &"0123456789"[num % 10], 1);
+}	
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	long long	num;
+
+	if (!fd)
+		return ;
+	if (!n)
+	{
+		write (fd, "0", 1);
+		return ;
+	}
+	num = (long long)n;
+	if (num < 0)
+	{
+		num *= -1;
+		write(fd, "-", 1);
+	}
+	ft_itern(num, fd);
 }

@@ -6,9 +6,15 @@
 /*   By: jinhyeok <jinhyeok@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 21:37:12 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/03/16 22:08:48 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/03/17 10:54:48 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
 
+void	ft_putchar_fd(char c, int fd)
+{
+	if (fd < 0)
+		return ;
+	write (fd, &c, 1);
+}
