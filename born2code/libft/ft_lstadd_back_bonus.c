@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:03:26 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/03/20 14:47:13 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:33:05 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	if (!lst || !new)
 		return ;
 	temp = *lst;
-	if (!(*(lst)))
+	if (!temp)
 	{
 		*lst = new;
 		return ;

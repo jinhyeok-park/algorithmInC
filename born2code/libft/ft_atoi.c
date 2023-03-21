@@ -6,7 +6,7 @@
 /*   By: jinhyeok <https://github.com/42Paris/42he  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 20:01:24 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/03/20 16:53:27 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:53:55 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,3 @@ int	ft_atoi(const char *str)
 	}
 	return (sign * result);
 }
-//#include <stdlib.h>
-//#include <stdio.h>
-//#define STR "-2147483649"
-//
-//int	main(void)
-//{
-//	printf("origin : %d\n", atoi(STR));
-//	printf("mine : %d\n", ft_atoi(STR));
-//	return (0);
-//}
-//

@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 10:39:55 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/03/17 11:25:06 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:09:24 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	ft_putnbr_fd(int n, int fd)
 {
 	long long	num;
 
-	if (!fd)
-		return ;
 	if (!n)
 	{
 		write (fd, "0", 1);

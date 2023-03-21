@@ -6,14 +6,13 @@
 /*   By: jinhyeok <jinhyeok@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:48:41 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/03/20 14:46:18 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:02:30 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include<stdio.h>
 # include<stdlib.h>
 # include<unistd.h>
 
