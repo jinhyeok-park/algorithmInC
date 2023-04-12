@@ -5,155 +5,134 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/08 12:13:40 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/04/11 11:54:02 by jinhyeok         ###   ########.fr       */
+/*   Created: 2023/04/11 11:36:22 by jinhyeok          #+#    #+#             */
+/*   Updated: 2023/04/12 15:04:08by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*get_next_line(int fd)
 {
-	static t_string list;
-	char	buf[BUFFER_SIZE + 1];
-	char	*result;
-	char	*buff_temp;
-	ssize_t		temp;
+	static t_list	list;
+	//char			buf[BUFFER_SIZE + 1];
+	char			*result;
+	char			*temp_result;
+	ssize_t			temp;
+	//char			*buf;
 
 	result = 0;
-	buff_temp = NULL;
-	if (fd < 0)
+	if (fd < 0 || read(fd, result, 0) < 0 || BUFFER_SIZE < 1)
 		return (0);
-	result = get_rest(fd, &list);
+	if (list.fd)
+		list = *list_checker(&list, fd);
+	result = get_rest(&list);
 	if (result)
-	{
-		list.next = (t_string *)malloc(sizeof(t_string));
-		list = *list.next;
-	}
+		return (result);
+	temp_result = ft_strdup(list.data, BUFFER_SIZE);
+	list.fd = fd;
 	while (1)
 	{
-		temp = ft_strlen(result);
-		buff_temp = buf_read(fd, &list, result, &temp);
-		if (temp == -1)
+		result = (char *)malloc(BUFFER_SIZE + 1);
+		temp = read(fd, result, BUFFER_SIZE);
+		result[temp] = 0;
+		temp_result = buff_read(temp_result, result, &list, &temp);
+		if (result)
 		{
 			free(result);
-			return (buff_temp);
+			result = 0;
 		}
-		temp = read(fd, buf, BUFFER_SIZE);
-		buf[temp] = 0;
-		buff_temp = buf_read(fd, &list, buf, &temp);
-		result = ft_strjoin(result, buff_temp);
-		if (!buff_temp || temp == -1 || !temp)
-			return (result);
+
+		// buf[temp] = 0;
+		// temp_result = buff_read(temp_result, buf, &list, &temp);
+		if (!temp)
+			return (temp_result);
 	}
 	return (result);
 }
 
-char	*buf_read(int fd, t_string *list, char *buf, ssize_t *temp)
+char	*buff_read(char *temp_result, char *buf, t_list *list, ssize_t *temp)
+{
+	size_t	i;
+	size_t	byte;
+	char	*result;
+
+	i = 0;
+	result = 0;
+	if (!*temp)
+		return (temp_result);
+	byte = (size_t)(*temp);
+	while (i < byte)
+	{
+		if (buf[i] == '\n')
+		{
+			*temp = 0;
+			result = list_fill(temp_result, list, buf, i);
+			return (result);
+		}
+		i++;
+	}
+	result = ft_strjoin(temp_result, buf);
+	free(temp_result);
+	temp_result = 0;
+	if (byte < BUFFER_SIZE)
+		*temp = 0;
+	return (result);
+}
+
+char	*list_fill(char *temp_result, t_list *list, char *buf, size_t i)
 {
 	char	*result;
-	ssize_t	i;
-	ssize_t len_temp;
+	char	*temp_list;
+	char	*temp;
+	size_t	len;
 
-	if (!*temp)
-		return (0);
-	len_temp = *temp;
-	i = 0;
-	if (*temp < 0)
-		return (0);
-	while (i < len_temp)
-	{
-		if (buf[i++] == '\n')
-		{
-			result = buf_fill(buf, i, list, fd);
-			*temp = -1;
-			break;
-		}
-	}
-	if (i == len_temp)
-		result = buf_fill(buf, i + 1, NULL, fd);
+	len = ft_strlen(buf);
+	temp = ft_strdup(buf, i + 1);
+	temp_list = ft_strdup(buf + i + 1, len - i);
+	result = ft_strjoin(temp_result, temp);
+	free(temp);
+	free(temp_result);
+	if (list->data)
+		free(list->data);
+	list->data = temp_list;
 	return (result);
 }
 
-int	list_fill(char *buf, t_string *list, int fd)
+char	*get_rest(t_list *list)
 {
-	size_t	len;
-	size_t	i;
-	t_string *temp_list;
+	t_list	*temp_list;
+	size_t		i;
+	char		*result;
 
 	temp_list = list;
-	len = ft_strlen(buf);
-	i = -1;
-	if (temp_list->fd)
+	result = 0;
+	if (!list->fd || !(list->data))
+		return (0);
+	i = 0;
+	while (temp_list->data[i])
 	{
-		while (temp_list->next)
-			temp_list = temp_list->next;
-		temp_list->next = (t_string *)malloc(sizeof(t_string));
-		if (!temp_list->next)
-			return (-1);
-		temp_list = temp_list->next;
+		if (temp_list->data[i] == '\n')
+			return (ft_rest_return(temp_list, i));
+		i++;
 	}
-	temp_list->fd = fd;
-	temp_list->data = (char *)malloc(len + 1); 
-	if (!(temp_list->data))
-		return (-1);
-	temp_list->data[len] = 0;
-	while (buf[++i])
-		temp_list->data[i] = buf[i];
-	return (1);
+	return (0);
 }
 
-char	*buf_fill(char *buf, int len, t_string *list, int fd)
+char	*ft_rest_return(t_list *list, size_t i)
 {
-	int	i;
-	int	buf_len;
 	char	*result;
+	char	*list_result;
 
-	i = -1;
-	buf_len = ft_strlen(buf);
-	result = (char *)malloc(len);
-	if (!result)
-		return (0);
-	while (++i + 1 < len)
-		result[i] = buf[i];
-	result[i] = 0;
-	if (buf_len != len && list)
-		list_fill(buf + len, list, fd);
+	result = ft_strdup(list->data, i);
+	list_result = ft_strdup(list->data + i + 1, BUFFER_SIZE);
+	free(list->data);
+	if (!list_result)
+	{
+		list->fd = 0;
+		list->data = 0;
+	}
+	else
+		list->data = list_result;
 	return (result);
 }
-
-char	*get_rest(int fd, t_string *list)
-{
-	size_t	len;
-	size_t	i;
-	t_string *temp;
-	char	*str;
-	char	*result;
-
-	temp = list;
-	str = 0;
-	if (!(temp->fd))
-		return (0);
-	while (temp)
-	{
-		if (temp->fd == fd)
-			{
-				str = temp->data;
-				break;
-			}
-		temp = temp->next;
-	}
-	if (!str)
-		return (0);
-	i = -1;
-	len = ft_strlen_except(str);
-	result = (char *)malloc(len + 1);
-	if (!result)
-		return (0);
-	result[len] = 0;
-	while (++i < len)
-		result[i] = str[i];
-	return (result);
-}
-
