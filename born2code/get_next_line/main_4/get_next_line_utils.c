@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 23:48:39 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/04/19 00:33:44 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/04/19 01:12:31 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	read_checklist(int fd, t_list **list)
 		if (!buff)
 			return ;
 		read_size = read(fd, buff, BUFFER_SIZE);
-		if ((!*list && !read_size) || read_size == -1 )
+		if ((!*list && !read_size) || read_size == -1)
 		{
 			free(buff);
 			return ;

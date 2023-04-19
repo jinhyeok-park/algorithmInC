@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:24:01 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/04/18 22:59:49 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/04/19 01:20:00 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -35,7 +35,7 @@ int		make_line(t_list *list, char **line, int fd);
 void	read_checklist(int fd, t_list **list);
 void	add_list(t_list **list, char *buff, ssize_t read_size, int fd);
 int		check_enter(t_list *list, int fd);
-t_list	*get_last_node(t_list *list, int fd);
+t_list	*get_last_node(t_list *list, int fd, int flag);
 void	clear_set(int enter_index, t_list **list, int fd, t_list *backup);
 
 #endif

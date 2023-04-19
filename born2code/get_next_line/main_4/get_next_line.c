@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:37:03 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/04/18 22:31:16y jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/04/19 01:10:28 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int	line_alloc(char **line, t_list *list, int fd)
 	ret = -1;
 	while (list)
 	{
-		i =  0;
+		i = 0;
 		while (list->fd == fd && list->data[i])
 		{
 			if (list->data[i] == '\n')
 			{
 				len++;
 				ret = i;
-				break;
+				break ;
 			}
 			len++;
 			i++;
@@ -113,7 +113,7 @@ int	make_line(t_list *list, char **line, int fd)
 			if (list->data[i] == '\n')
 			{
 				(*line)[j] = list->data[i];
-				break;
+				break ;
 			}
 			(*line)[j] = list->data[i++];
 			j++;
@@ -137,12 +137,9 @@ void	add_list(t_list **list, char *buff, ssize_t read_size, int fd)
 	new_node->data = (char *)malloc(read_size + 1);
 	if (!new_node->data)
 		return ;
-	i = 0;
-	while (buff[i] && i < read_size)
-	{
+	i = -1;
+	while (buff[++i] && i < read_size)
 		new_node->data[i] = buff[i];
-		i++;
-	}
 	new_node->data[i] = '\0';
 	if (!*list)
 	{
