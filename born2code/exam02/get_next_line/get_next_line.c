@@ -13,7 +13,7 @@ char	*get_next_line(int fd)
 
 	start = malloc(10000);
 	point = start;
-	if (fd < 0 || BUFFER_SIZE < 0 || read(fd, NULL, 0) == -1) 
+	if (fd < 0) 
 		return (NULL);
 	while (read(fd, point, 1) > 0)
 	{
@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 	}
 	if (point > start || *point == '\n')
 	{
-		if (point == start && *point == '\n')
+		if (point == start || *point == '\n')
 			point++;
 		*point = 0;
 		return (start);
