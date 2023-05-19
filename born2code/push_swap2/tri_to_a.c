@@ -1,0 +1,109 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tri_to_a.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/18 21:49:24 by jinhyeok          #+#    #+#             */
+/*   Updated: 2023/05/19 21:04:48 by jinhyeok         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	to_a(t_list_ps *lista, t_list_ps *listb, int *sort_size, int dep)
+{
+	int	tri;
+	int	temp;
+	int	i;
+	int	*to_arr;
+
+	tri = ft_pow(3, dep - 1);
+	to_arr = get_triangle(tri, lista->size);
+	get_direction(to_arr, tri);
+	i = ft_pow(3, dep);
+	i--;
+
+	while (tri--)
+	{
+		temp = ft_abs(sort_size[i--]);
+		while (temp--)
+			pa(lista, listb, 1);
+	}
+	make_tri(lista, listb, i, dep);
+}
+
+void	make_tri(t_list_ps *lista, t_list_ps *listb, int idx, int dep)
+{
+	int mirror;
+	int	arr[3];
+	int	*sort_size;
+	int	i;
+
+	sort_size = get_triangle(dep, lista->size + listb->size);
+	get_direction(sort_size, dep);
+	mirror = ft_pow(3, dep - 1);
+	i = 0;
+	while (mirror)
+	{
+		arr[0] = (sort_size[idx - i]); /// b top
+		arr[1] = (sort_size[idx + mirror]); // a bottom
+		arr[2] = (sort_size[idx - (2 * mirror - 1 + i++)]); // b bottom
+		make_tri2(lista, listb, arr, mirror);
+				mirror--;
+	}
+}
+
+void	make_tri2(t_list_ps *lista, t_list_ps *listb, int *arr, int dep)
+{
+	int	sign;
+
+	if (arr[0] < 0 && arr[1] < 0 && arr[2] > 0)
+		sign = 1;
+	else
+		sign = -1;
+	if (sign == 1)
+		make_tri_up(lista, listb, arr);
+	else 
+		make_tri_down(lista, listb, arr ,dep);
+}
+
+void	make_tri_up(t_list_ps *lista, t_list_ps *listb, int *arr)
+{
+	int	count;
+	count = 0;
+	// printf("in up");
+	// 		printf("%d", arr[0]);
+	// 		printf("%d", arr[1]);
+	// 		printf("%d", arr[2]);
+	make_posit(arr);
+	while (1)
+	{
+		check_all(lista, listb, arr);
+		if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0)
+			break;
+		count++;
+	}
+}
+
+void	make_tri_down(t_list_ps *lista, t_list_ps *listb, int *arr, int dep)
+{
+	
+	// printf("in down");
+	// 	{
+	// 		printf("\n%d", arr[0]);
+	// 		printf("%d", arr[1]);
+	// 		printf("%d\n", arr[2]);
+	// 		(void)dep;
+
+	// 	}
+	(void)dep;
+	make_posit(arr);
+	while (1)
+	{
+		check_all_d(lista, listb, arr);
+		if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0)
+			break;
+	}
+}
