@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:49:24 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 21:04:48 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/21 08:54:42 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ void	to_a(t_list_ps *lista, t_list_ps *listb, int *sort_size, int dep)
 	int	tri;
 	int	temp;
 	int	i;
-	int	*to_arr;
 
 	tri = ft_pow(3, dep - 1);
-	to_arr = get_triangle(tri, lista->size);
-	get_direction(to_arr, tri);
 	i = ft_pow(3, dep);
 	i--;
 
@@ -73,10 +70,6 @@ void	make_tri_up(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
 	int	count;
 	count = 0;
-	// printf("in up");
-	// 		printf("%d", arr[0]);
-	// 		printf("%d", arr[1]);
-	// 		printf("%d", arr[2]);
 	make_posit(arr);
 	while (1)
 	{
@@ -89,15 +82,6 @@ void	make_tri_up(t_list_ps *lista, t_list_ps *listb, int *arr)
 
 void	make_tri_down(t_list_ps *lista, t_list_ps *listb, int *arr, int dep)
 {
-	
-	// printf("in down");
-	// 	{
-	// 		printf("\n%d", arr[0]);
-	// 		printf("%d", arr[1]);
-	// 		printf("%d\n", arr[2]);
-	// 		(void)dep;
-
-	// 	}
 	(void)dep;
 	make_posit(arr);
 	while (1)

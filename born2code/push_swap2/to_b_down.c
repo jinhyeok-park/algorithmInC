@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 13:44:03 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 13:45:02 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:29:52jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_all_ad(t_list_ps *lista, t_list_ps *listb, int *arr)
 	}
 	else if (arr[0] == 0 && arr[1] > 0 && arr[2] == 0)
 	{
-		rrb(lista, 1);
+		rrb(listb, 1);
 		arr[1] -= 1;
 	}
 	else if (arr[0] == 0 && arr[1] == 0 && arr[2] > 0)
@@ -40,7 +40,7 @@ void	three_ad(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
 	int temp;
 
-	temp = find_min_tri(lista, listb);
+	temp = find_min_tri_d(lista, listb);
 	if (temp == 0)
 	{
 		pb(lista, listb, 1);

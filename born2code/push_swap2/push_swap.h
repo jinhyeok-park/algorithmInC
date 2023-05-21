@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:54:09 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 19:36:52 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/20 23:02:34 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void	make_posit(int *arr);
 int		find_max_intri(t_list_ps *lista, t_list_ps *listb);
 int		ft_abs(int abs);
 int		find_min_tri(t_list_ps *lista, t_list_ps *listb);
+int		find_min_tri_d(t_list_ps *lista, t_list_ps *listb);
 int		find_max_intri_a(t_list_ps *lista, t_list_ps *listb);
 
 //tri_to_b.c

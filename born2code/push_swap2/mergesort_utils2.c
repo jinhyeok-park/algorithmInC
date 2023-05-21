@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 19:35:29 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 19:36:11 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:12:43 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	merge_5(t_list_ps *lista, t_list_ps *listb, int size)
 		pb(lista, listb, 1);
 		ra(lista, 1);
 	}
-	sup_5(lista, listb, size, i);
+	sup_5(lista, listb, i, size);
 }
 
 void	sup_5(t_list_ps *lista, t_list_ps *listb, int i, int size)
@@ -54,19 +54,60 @@ void	sup_5(t_list_ps *lista, t_list_ps *listb, int i, int size)
 }
 
 int	five_data(t_list_ps *lista, int size)
-{
-	int	arr[5];
-	int	i;
-	
+{ int	arr[5]; int	i;
 	arr[0] = lista->head->data;
 	arr[1] = lista->head->next->data;
 	arr[2] = lista->tail->data;
 	arr[3] = lista->tail->prev->data;
 	arr[4] = lista->head->next->next->data;
 	i = four_data(lista, size);
+
 	if (size > 0 && arr[i] < arr[4])
 		return (4);
 	else if (size < 0 && arr[i] > arr[4])
 		return (4);
 	return (i);
+}
+
+// int main(void)
+// {
+// 	t_list_ps *lista;
+// 	t_list_ps *listb;
+
+// 	lista = (t_list_ps *)malloc(sizeof(t_list_ps));
+// 	listb = (t_list_ps *)malloc(sizeof(t_list_ps));
+// 	push_head(lista, 4);
+// 	push_head(lista, 1);
+// 	push_head(lista, 10);
+// 	push_head(lista, 2);
+// 	push_head(lista, 9);
+
+// 	print_a_b(lista, listb);
+// 	merge_5(lista, listb, 5);
+// 	print_a_b(lista, listb);
+// }
+
+
+void	print_a_b(t_list_ps *lista, t_list_ps *listb)
+{
+	t_node *temp;
+
+	temp = lista->head;
+	printf("\nlista print\n");
+	if (temp == NULL)
+		printf("NULL");
+	for (int i = 0 ; i < lista->size; i++)
+	{
+		printf("%d ", temp->data);
+		temp = temp->next;
+	}
+	printf("\nlistb print\n");
+	temp = listb->head;
+	if (temp == NULL)
+		printf("NULL");
+	for (int i = 0 ; i < listb->size; i++)
+	{
+		printf("%d ", temp->data);
+		temp = temp->next;
+	}
 }

@@ -50,17 +50,11 @@ void	to_b(t_list_ps *lista, t_list_ps *listb, int *sort_size, int dep)
 void	sort_all(t_list_ps *lista, t_list_ps *listb, int dep)
 {
 	int	*sort_size;
-
 	while (dep)
 	{
 		sort_size = get_triangle(dep, lista->size + listb->size);
 	
 		get_direction(sort_size, dep);
-		// for (int i = 0 ; i < 9 ; i ++)
-		// {
-		// 	printf("%d ", sort_size[i]);
-		// }
-		// exit(0);
 		if (listb->size == 0)
 			to_b_sort(lista, listb, sort_size, dep);
 		else

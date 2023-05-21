@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:15:01 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 19:48:34 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/20 22:46:40 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	sorting(t_list_ps *lista)
 		short_sorting(lista, listb);
 	 else
 	 	merge_sort(lista, listb);
+	print_a_b(lista, listb);
 }
 
 void	last_to_a(t_list_ps *lista, t_list_ps *listb)
@@ -64,28 +65,4 @@ void	one(t_list_ps *lista, t_list_ps *listb, int *arr)
 	rrb(listb, 1);
 	pa(lista, listb, 1);
 	arr[2] -= 1;
-}
-
-void	print_a_b(t_list_ps *lista, t_list_ps *listb)
-{
-	t_node *temp;
-
-	temp = lista->head;
-	printf("\nlista print\n");
-	if (temp == NULL)
-		printf("NULL");
-	for (int i = 0 ; i < lista->size; i++)
-	{
-		printf("%d ", temp->data);
-		temp = temp->next;
-	}
-	printf("\nlistb print\n");
-	temp = listb->head;
-	if (temp == NULL)
-		printf("NULL");
-	for (int i = 0 ; i < listb->size; i++)
-	{
-		printf("%d ", temp->data);
-		temp = temp->next;
-	}
 }

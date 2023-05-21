@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 13:38:06 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 17:03:46 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/21 08:53:36 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void	make_tri_a(t_list_ps *lista, t_list_ps *listb, int idx, int dep)
 		arr[1] = (sort_size[idx + mirror]); // b bottom
 		arr[2] = (sort_size[idx - (2 * mirror - 1 + i++)]); // a bottom
 		make_tri2_a(lista, listb, arr);
+		// if (mirror == 2) 
+		// {
+		// 	printf("in");
+		// 	print_a_b(lista, listb);
+		// 	exit(1);
+		// }
 		mirror--;
 	}
 }
