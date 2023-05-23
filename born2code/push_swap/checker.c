@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 19:34:20 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 22:23:50 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:25:30 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int ac, char **av)
 {
 	t_list_ps	*list;
 	int			len;
-	char		*temp;
 
 	len = av_count(ac, av);
 	if (!check_input(ac, av) || (len == 1 && ac > len + 1))
