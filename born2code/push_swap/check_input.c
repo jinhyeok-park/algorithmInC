@@ -6,13 +6,13 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:53:55 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/03 15:37:05 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:06:18 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int check_input(int ac, char **av)
+int	check_input(int ac, char **av)
 {
 	long long	*new_av;
 	int			len;
@@ -85,7 +85,7 @@ long long	*make_new_av(int ac, char **av)
 	ret = (long long *)malloc(sizeof(long long) * av_count(ac, av));
 	if (!ret)
 		return (0);
-	while(++i < ac)
+	while (++i < ac)
 	{
 		temp = ft_split(av[i], ' ');
 		j = -1;
@@ -119,29 +119,3 @@ int	av_count(int ac, char **av)
 	}
 	return (count);
 }
-
-int check_isdigit(int ac, char **av)
-{
-	int i;
-	int j;
-
-	i = 1;
-	while (i < ac)
-	{
-		j = 0;
-		while (av[i][j])
-		{
-			if (!ft_isdigit(av[i][j]) && av[i][j] != ' ' && av[i][j] != '-')
-				return (0);
-			if (av[i][j] == '-')
-			{
-				if (!ft_isdigit(av[i][j + 1]))
-					return (0);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-

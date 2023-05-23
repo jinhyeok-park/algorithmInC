@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:42:24 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/10 16:07:41 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:27:31 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	pop_head(t_list_ps *list)
 {
-	t_node *temp;
+	t_node	*temp;
 
 	if (list)
 	{
@@ -30,15 +30,15 @@ void	pop_head(t_list_ps *list)
 			list->head = temp->next;
 			list->head->prev = list->tail;
 			list->tail->next = list->head;
-			list->size--;
 			free(temp);
 		}
+		list->size--;
 	}
 }
 
 void	pop_tail(t_list_ps *list)
 {
-	t_node *temp;
+	t_node	*temp;
 
 	if (list)
 	{
@@ -63,7 +63,7 @@ int	push_head(t_list_ps *list, int data)
 		temp = create_node(data);
 		if (!temp)
 			return (0);
-		if(list->head)
+		if (list->head)
 		{
 			(list->head)->prev = temp;
 			temp->next = list->head;
@@ -79,12 +79,12 @@ int	push_head(t_list_ps *list, int data)
 		list->size++;
 		return (1);
 	}
-	return  (0);
+	return (0);
 }
 
 int	push_tail(t_list_ps *list, int data)
 {
-	t_node *temp;
+	t_node	*temp;
 
 	if (list)
 	{
@@ -103,7 +103,7 @@ int	push_tail(t_list_ps *list, int data)
 
 t_node	*create_node(int data)
 {
-	t_node *ret;
+	t_node	*ret;
 
 	ret = (t_node *)malloc(sizeof(t_node));
 	if (!ret)
@@ -112,44 +112,4 @@ t_node	*create_node(int data)
 	ret->next = NULL;
 	ret->prev = NULL;
 	return (ret);
-}
-
-// #include <stdio.h>
-// int main(void)
-// {
-// 	t_list_ps *temp;
-
-// 	temp = (t_list_ps *)malloc(sizeof(t_list_ps));
-// 	temp->head = NULL;
-// 	temp->tail = NULL;
-// 	temp->size = 0;
-// 	push_head(temp, 1);
-// 	push_tail(temp, 2);
-// 	push_tail(temp, 3);
-// 	sa(temp);
-// 	list_printer(temp);
-// }
-
-//  void	list_printer(t_list_ps *list)
-//  {
-// 	int	temp;
-
-// 	temp = list->size;
-// 	while (temp--)
-// 	{
-// 		printf("%d\n", list->head->data);
-// 		list->head = list->head->next;
-// 	}
-//  }
-
-void	free_list(t_list_ps *list)
-{
-	t_node *throw;
-
-	while (list->size--)
-	{
-		throw = list->head;
-		list->head = list->head->next;
-		free(throw);
-	}
 }

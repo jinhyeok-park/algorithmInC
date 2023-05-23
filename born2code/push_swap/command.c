@@ -6,58 +6,84 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:23:33 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/09 13:34:14 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:07:52 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int    sa(t_list_ps *list)
+int	ra(t_list_ps *list, int flag)
 {
-    t_node *temp;
+	int	temp;
 
-    if (!list->head || !list->head->next)
-        return (0);
-    temp = list->head->next;
-    list->head->next = temp->next;
-    list->head->prev = temp;
-    temp->next = list->head;
-    temp->prev = list->tail;
-    return (1);
+	if (list)
+	{
+		if (list->head && list->tail)
+		{
+			temp = list->head->data;
+			pop_head(list);
+			push_tail(list, temp);
+			if (flag)
+				write(1, "ra\n", 3);
+			return (1);
+		}
+	}
+	return (0);
 }
 
-int    sb(t_list_ps *list)
+int	rb(t_list_ps *list, int flag)
 {
-    t_node *temp;
+	int	temp;
 
-    if (!list->head || !list->head->next)
-        return (0);
-    temp = list->head->next;
-    list->head->next = temp->next;
-    list->head->prev = temp;
-    temp->next = list->head;
-    temp->prev = list->tail;
-    return (1);
+	if (list)
+	{
+		if (list->head && list->tail)
+		{
+			temp = list->head->data;
+			pop_head(list);
+			push_tail(list, temp);
+			if (flag)
+				write(1, "rb\n", 3);
+			return (1);
+		}
+	}
+	return (0);
 }
 
-int ss(t_list_ps *lista, t_list_ps* listb)
+int	rra(t_list_ps *list, int flag)
 {
-    if (!sa(lista) || sb(listb))
-        return (0);
-    return (1);
+	int	temp;
+
+	if (list)
+	{
+		if (list->head && list->tail)
+		{
+			temp = list->tail->data;
+			pop_tail(list);
+			push_head(list, temp);
+			if (flag)
+				write(1, "rra\n", 4);
+			return (1);
+		}
+	}
+	return (0);
 }
 
-int pa(t_list_ps *lista, t_list_ps* listb)
+int	rrb(t_list_ps *list, int flag)
 {
-    t_node *temp;
+	int	temp;
 
-    temp = listb->head;
-    
+	if (list)
+	{
+		if (list->head && list->tail)
+		{
+			temp = list->tail->data;
+			pop_tail(list);
+			push_head(list, temp);
+			if (flag)
+				write(1, "rrb\n", 4);
+			return (1);
+		}
+	}
+	return (0);
 }
-int pa(t_list_ps *lista, t_list_ps* listb)
-int pa(t_list_ps *lista, t_list_ps* listb)
-int pa(t_list_ps *lista, t_list_ps* listb)
-int pa(t_list_ps *lista, t_list_ps* listb)
-int pa(t_list_ps *lista, t_list_ps* listb)
-int pa(t_list_ps *lista, t_list_ps* listb)
-int pa(t_list_ps *lista, t_list_ps* listb)
