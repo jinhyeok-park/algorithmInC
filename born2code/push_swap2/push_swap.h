@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:54:09 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/20 23:02:34 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:39:36 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 #include <limits.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h>
+
+#ifndef BUFFER_SZIE
+# define BUFFER_SIZE 8
+#endif
 
 typedef struct s_node
 {
@@ -66,6 +71,8 @@ t_node	*create_node(int data);
 int pa(t_list_ps *lista, t_list_ps *listb, int flag);
 int pb(t_list_ps *lista, t_list_ps *listb, int flag);
 int sa(t_list_ps *list, int flag);
+int sb(t_list_ps *list, int flag);
+
 //command.c
 int ra(t_list_ps *list, int flag);
 int rb(t_list_ps *list, int flag);
@@ -175,5 +182,16 @@ int	five_data(t_list_ps *lista, int size);
 char	**ft_split(char const *s, char c);
 int		ft_isdigit(int c);
 
+
+//get_next_line
+char	*get_next_line(int fd);
+void    do_command(char *temp, t_list_ps *lista, t_list_ps *listb);
+int ft_strcmp(char *s1, char *s2);
+void    get_next_start(t_list_ps *lista);
+void    check_sort(t_list_ps *lista, t_list_ps *listb);
+void    do_command_2(char *temp, t_list_ps *lista, t_list_ps *listb);
+
+
 void	print_a_b(t_list_ps *lista, t_list_ps *listb);
+
 #endif

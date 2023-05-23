@@ -18,22 +18,17 @@ int main(int ac, char **av)
 	int			len;
 
 	len = av_count(ac, av);
-	if (ac < 2 || len < 2)
-		return (0);
-	if (!check_input(ac, av))
+	if (!check_input(ac, av) || (len == 1 && ac > len + 1))
 	{
 		error_msg();
 		return (0);
 	}
+	if (ac < 2 || len < 2)
+		return (0);
 	list = make_list(ac, av, len);
 	if (!list)
 		return (0);
 	if(issorting(list))
 		exit(0);
 	sorting(list);
-	// while (list->size--)
-	// {
-	// 	printf("%d " , list->head->data);
-	// 	list->head = list->head->next;
-	// }
 }

@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:49:24 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/21 08:54:42 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:00:19 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,12 @@ void	make_tri2(t_list_ps *lista, t_list_ps *listb, int *arr, int dep)
 
 void	make_tri_up(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
-	int	count;
-	count = 0;
 	make_posit(arr);
 	while (1)
 	{
 		check_all(lista, listb, arr);
 		if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0)
 			break;
-		count++;
 	}
 }
 

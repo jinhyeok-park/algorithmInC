@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:36:47 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 14:11:02 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:28:14 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int sa(t_list_ps *list, int flag)
 	return (0);
 }
 
-int sb(t_list_ps *list)
+int sb(t_list_ps *list, int flag)
 {
 	int data1;
 	int data2;
@@ -50,18 +50,20 @@ int sb(t_list_ps *list)
 			pop_head(list);
 			if (!push_head(list, data1) || !push_head(list, data2))
 				return (0);
+			if (flag)
+				write(1, "sb\n", 3);
 			return (1);
 		}
 	}
 	return (0);
 }
 
-int ss(t_list_ps *lista, t_list_ps *listb)
-{
-	if (!sa(lista, 1) || !sb(listb))
-		return (0);
-	return (1);
-}
+// int ss(t_list_ps *lista, t_list_ps *listb)
+// {
+// 	if (!sa(lista, 1) || !sb(listb))
+// 		return (0);
+// 	return (1);
+// }
 
 int pa(t_list_ps *lista, t_list_ps *listb, int flag)
 {
