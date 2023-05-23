@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 13:44:03 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/20 17:29:52jinhyeok         ###   ########.fr       */
+/*   Created: 2023/05/22 22:14:40 by jinhyeok          #+#    #+#             */
+/*   Updated: 2023/05/22 22:15:17 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	check_all_ad(t_list_ps *lista, t_list_ps *listb, int *arr)
 
 void	three_ad(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
-	int temp;
+	int	temp;
 
 	temp = find_min_tri_d(lista, listb);
 	if (temp == 0)
@@ -66,7 +66,7 @@ void	two_aad(t_list_ps *lista, t_list_ps *listb, int *arr)
 		rrb(listb, 1);
 		arr[1] -= 1;
 	}
-	else 
+	else
 	{
 		rra(lista, 1);
 		pb(lista, listb, 1);

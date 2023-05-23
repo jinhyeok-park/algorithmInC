@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 13:49:26 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/20 17:27:01 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:32:28 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	check_all_a(t_list_ps *lista, t_list_ps *listb, int *arr)
 
 void	three_a(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
-	int temp;
+	int	temp;
 
 	temp = find_max_intri_a(lista, listb);
 	if (temp == 0)
@@ -66,7 +66,7 @@ void	two_aa(t_list_ps *lista, t_list_ps *listb, int *arr)
 		rrb(listb, 1);
 		arr[1] -= 1;
 	}
-	else 
+	else
 	{
 		rra(lista, 1);
 		pb(lista, listb, 1);

@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 13:19:36 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/20 16:15:10 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:36:51 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	check_all_d(t_list_ps *lista, t_list_ps *listb, int *arr)
 
 void	three_d(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
-	int temp;
+	int	temp;
 
 	temp = find_min_tri(lista, listb);
 	if (temp == 0)
@@ -90,15 +90,12 @@ void	two_dc(t_list_ps *lista, t_list_ps *listb, int *arr)
 
 void	two_da(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
-	if (!lista->tail || lista->size == 0 || listb->size == 0 || !listb || !lista || !listb->tail)
-	{
-	}
 	if (lista->tail->data < listb->tail->data)
 	{
 		rra(lista, 1);
 		arr[1] -= 1;
 	}
-	else 
+	else
 	{
 		rrb(listb, 1);
 		pa(lista, listb, 1);

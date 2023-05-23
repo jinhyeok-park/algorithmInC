@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   checker_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/22 22:31:27 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 22:32:06 by jinhyeok         ###   ########.fr       */
+/*   Created: 2023/05/22 22:21:14 by jinhyeok          #+#    #+#             */
+/*   Updated: 2023/05/22 22:24:19 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-int	main(int ac, char **av)
+int	ft_strcmp(char *s1, char *s2)
 {
-	t_list_ps	*list;
-	int			len;
+	int	i;
 
-	len = av_count(ac, av);
-	if (!check_input(ac, av) || (len == 1 && ac > len + 1))
+	i = -1;
+	while (s1[++i] != '\n')
 	{
-		error_msg();
-		return (0);
+		if (s1[i] != s2[i])
+			return (0);
 	}
-	if (ac < 2 || len < 2)
-		return (0);
-	list = make_list(ac, av, len);
-	if (!list)
-		return (0);
-	if (issorting(list))
-		exit(0);
-	sorting(list);
+	return (1);
 }

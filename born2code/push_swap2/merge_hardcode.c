@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:30:06 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/18 20:35:59 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:43:44 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	merge_4(t_list_ps *lista, t_list_ps *listb, int size)
 		pb(lista, listb, 1);
 		rra(lista, 1);
 	}
-	merge_4_support(lista, listb, i, size);
+	merge_4_sup(lista, listb, i, size);
 }
 
-void	merge_4_support(t_list_ps *lista, t_list_ps *listb, int i, int size)
+void	merge_4_sup(t_list_ps *lista, t_list_ps *listb, int i, int size)
 {
 	if (i == 2)
 	{

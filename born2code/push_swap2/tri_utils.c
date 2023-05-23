@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 13:22:37 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 13:32:18 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:02:35 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	find_max(t_list_ps *lista, t_list_ps *listb)
 {
-	int minimum;
+	int	minimum;
 	int	num[3];
 	int	i;
 	int	ret;
@@ -53,7 +53,7 @@ int	issorting(t_list_ps *list)
 	return (1);
 }
 
-int ft_pow(int num, int power)
+int	ft_pow(int num, int power)
 {
 	int	ret;
 
@@ -75,7 +75,7 @@ int	depth(int size)
 	while (size)
 	{
 		if (size < 5)
-			break;
+			break ;
 		size = size / 3 + size % 3;
 		depth++;
 	}

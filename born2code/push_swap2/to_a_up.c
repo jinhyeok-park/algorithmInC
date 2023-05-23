@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:58:42 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/18 22:00:56 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:53:26 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	two_a(t_list_ps *lista, t_list_ps *listb, int *arr)
 		rra(lista, 1);
 		arr[1] -= 1;
 	}
-	else 
+	else
 	{
 		rrb(listb, 1);
 		pa(lista, listb, 1);
@@ -82,7 +82,7 @@ void	two_c(t_list_ps *lista, t_list_ps *listb, int *arr)
 
 void	three(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
-	int temp;
+	int	temp;
 
 	temp = find_max_intri(lista, listb);
 	if (temp == 0)

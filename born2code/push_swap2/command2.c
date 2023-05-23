@@ -6,16 +6,16 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:36:47 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 20:28:14 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:46:19 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int sa(t_list_ps *list, int flag)
+int	sa(t_list_ps *list, int flag)
 {
-	int data1;
-	int data2;
+	int	data1;
+	int	data2;
 
 	if (list)
 	{
@@ -35,10 +35,10 @@ int sa(t_list_ps *list, int flag)
 	return (0);
 }
 
-int sb(t_list_ps *list, int flag)
+int	sb(t_list_ps *list, int flag)
 {
-	int data1;
-	int data2;
+	int	data1;
+	int	data2;
 
 	if (list)
 	{
@@ -58,16 +58,9 @@ int sb(t_list_ps *list, int flag)
 	return (0);
 }
 
-// int ss(t_list_ps *lista, t_list_ps *listb)
-// {
-// 	if (!sa(lista, 1) || !sb(listb))
-// 		return (0);
-// 	return (1);
-// }
-
-int pa(t_list_ps *lista, t_list_ps *listb, int flag)
+int	pa(t_list_ps *lista, t_list_ps *listb, int flag)
 {
-	int data;
+	int	data;
 
 	if (listb->size == 0)
 		return (0);
@@ -83,9 +76,9 @@ int pa(t_list_ps *lista, t_list_ps *listb, int flag)
 	return (0);
 }
 
-int pb(t_list_ps *lista, t_list_ps *listb, int flag)
+int	pb(t_list_ps *lista, t_list_ps *listb, int flag)
 {
-	int data;
+	int	data;
 
 	if (lista->head)
 	{

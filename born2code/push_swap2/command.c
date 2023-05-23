@@ -6,15 +6,15 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:23:33 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 14:10:05 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:07:52 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int ra(t_list_ps *list, int flag)
+int	ra(t_list_ps *list, int flag)
 {
-	int temp;
+	int	temp;
 
 	if (list)
 	{
@@ -31,9 +31,9 @@ int ra(t_list_ps *list, int flag)
 	return (0);
 }
 
-int rb(t_list_ps *list, int flag)
+int	rb(t_list_ps *list, int flag)
 {
-	int temp;
+	int	temp;
 
 	if (list)
 	{
@@ -50,9 +50,9 @@ int rb(t_list_ps *list, int flag)
 	return (0);
 }
 
-int rra(t_list_ps *list, int flag)
+int	rra(t_list_ps *list, int flag)
 {
-	int temp;
+	int	temp;
 
 	if (list)
 	{
@@ -69,9 +69,9 @@ int rra(t_list_ps *list, int flag)
 	return (0);
 }
 
-int rrb(t_list_ps *list, int flag)
+int	rrb(t_list_ps *list, int flag)
 {
-	int temp;
+	int	temp;
 
 	if (list)
 	{

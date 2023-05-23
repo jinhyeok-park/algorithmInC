@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:26:22 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/19 16:25:45by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:45:09 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	to_b(t_list_ps *lista, t_list_ps *listb, int *sort_size, int dep)
 	int	size;
 
 	i = -1;
-	size = ft_pow(3,dep);
+	size = ft_pow(3, dep);
 	while (++i < size)
 	{
 		if (sort_size[i] == 5 || sort_size[i] == -5)
@@ -50,13 +50,13 @@ void	to_b(t_list_ps *lista, t_list_ps *listb, int *sort_size, int dep)
 void	sort_all(t_list_ps *lista, t_list_ps *listb, int dep)
 {
 	int	*sort_size;
+
 	while (dep)
 	{
 		sort_size = get_triangle(dep, lista->size + listb->size);
-	
 		get_direction(sort_size, dep);
 		if (listb->size == 0)
-			to_b_sort(lista, listb, sort_size, dep);
+			tob(lista, listb, sort_size, dep);
 		else
 			to_a(lista, listb, sort_size, dep);
 		free(sort_size);

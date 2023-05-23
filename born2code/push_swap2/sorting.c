@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:15:01 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/21 20:20:52 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:52:44 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	sorting(t_list_ps *lista)
 {
-	t_list_ps *listb;
+	t_list_ps	*listb;
 
 	listb = create_list();
 	if (!listb)
@@ -24,8 +24,8 @@ void	sorting(t_list_ps *lista)
 	}
 	if (lista->size < 6)
 		short_sorting(lista, listb);
-	 else
-	 	merge_sort(lista, listb);
+	else
+		merge_sort(lista, listb);
 }
 
 void	last_to_a(t_list_ps *lista, t_list_ps *listb)

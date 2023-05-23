@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:20:25 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/18 21:21:30 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:47:54 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	four_data(t_list_ps *lista, int size)
 {
 	int	arr[4];
-	int i;
+	int	i;
 
 	arr[0] = lista->head->data;
 	arr[1] = lista->head->next->data;
@@ -36,7 +36,6 @@ int	three_data(t_list_ps *lista, int size)
 	arr[0] = lista->head->data;
 	arr[1] = lista->head->next->data;
 	arr[2] = lista->tail->data;
-
 	if (size > 0 && arr[0] > arr[1] && arr[0] > arr[2])
 		return (0);
 	else if (size < 0 && arr[0] < arr[1] && arr[0] < arr[2])

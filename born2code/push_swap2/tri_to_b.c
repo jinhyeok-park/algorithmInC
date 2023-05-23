@@ -6,13 +6,13 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 13:38:06 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/21 08:53:36 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:44:45 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	to_b_sort(t_list_ps *lista, t_list_ps *listb, int *sort_size, int dep)
+void	tob(t_list_ps *lista, t_list_ps *listb, int *sort_size, int dep)
 {
 	int	tri;
 	int	temp;
@@ -21,7 +21,6 @@ void	to_b_sort(t_list_ps *lista, t_list_ps *listb, int *sort_size, int dep)
 	tri = ft_pow(3, dep - 1);
 	i = ft_pow(3, dep);
 	i--;
-
 	while (tri--)
 	{
 		temp = ft_abs(sort_size[i--]);
@@ -33,7 +32,7 @@ void	to_b_sort(t_list_ps *lista, t_list_ps *listb, int *sort_size, int dep)
 
 void	make_tri_a(t_list_ps *lista, t_list_ps *listb, int idx, int dep)
 {
-	int mirror;
+	int	mirror;
 	int	arr[3];
 	int	*sort_size;
 	int	i;
@@ -44,16 +43,10 @@ void	make_tri_a(t_list_ps *lista, t_list_ps *listb, int idx, int dep)
 	i = 0;
 	while (mirror)
 	{
-		arr[0] = (sort_size[idx - i]); /// a top
-		arr[1] = (sort_size[idx + mirror]); // b bottom
-		arr[2] = (sort_size[idx - (2 * mirror - 1 + i++)]); // a bottom
+		arr[0] = (sort_size[idx - i]);
+		arr[1] = (sort_size[idx + mirror]);
+		arr[2] = (sort_size[idx - (2 * mirror - 1 + i++)]);
 		make_tri2_a(lista, listb, arr);
-		// if (mirror == 2) 
-		// {
-		// 	printf("in");
-		// 	print_a_b(lista, listb);
-		// 	exit(1);
-		// }
 		mirror--;
 	}
 }
@@ -68,20 +61,21 @@ void	make_tri2_a(t_list_ps *lista, t_list_ps *listb, int *arr)
 		sign = -1;
 	if (sign == 1)
 		make_tri_up_a(lista, listb, arr);
-	else 
-	 	make_tri_down_a(lista, listb, arr);
+	else
+		make_tri_down_a(lista, listb, arr);
 }
 
 void	make_tri_down_a(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
 	int	count;
+
 	count = 0;
 	make_posit(arr);
 	while (1)
 	{
 		check_all_ad(lista, listb, arr);
 		if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0)
-			break;
+			break ;
 		count++;
 	}
 	if (issorting(listb) && lista->size == 0)
@@ -91,13 +85,14 @@ void	make_tri_down_a(t_list_ps *lista, t_list_ps *listb, int *arr)
 void	make_tri_up_a(t_list_ps *lista, t_list_ps *listb, int *arr)
 {
 	int	count;
+
 	count = 0;
 	make_posit(arr);
 	while (1)
 	{
 		check_all_a(lista, listb, arr);
 		if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0)
-			break;
+			break ;
 		count++;
 	}
 	if (issorting(listb) && lista->size == 0)
