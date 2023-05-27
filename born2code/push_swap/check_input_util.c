@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 14:17:41 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 22:31:02 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:05:45 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,45 @@ int	check_isdigit(int ac, char **av)
 			j++;
 		}
 		i++;
+	}
+	return (1);
+}
+
+void	freeall(char **s)
+{
+	int	i;
+
+	i = -1;
+	if (s)
+	{
+		while (s[++i])
+			free(s[i]);
+		free(s);
+	}
+}
+
+int	sp_nu_checker(int ac, char **av)
+{
+	int	i;
+	int	flag;
+	int	j;
+
+	i = 0;
+	while (++i < ac)
+	{
+		if (av[i][0] == 0)
+			return (0);
+		j = -1;
+		flag = 0;
+		while (av[i][++j])
+		{
+			if (av[i][j] != 32)
+				flag = 1;
+			if (flag)
+				break ;
+		}
+		if (flag == 0)
+			return (0);
 	}
 	return (1);
 }

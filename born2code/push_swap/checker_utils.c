@@ -6,9 +6,11 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:21:14 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 22:24:19 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:55:53 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {
@@ -21,4 +23,13 @@ int	ft_strcmp(char *s1, char *s2)
 			return (0);
 	}
 	return (1);
+}
+
+void	iserror(char *temp, t_list_ps *lista, t_list_ps *listb)
+{
+	error_msg();
+	free(temp);
+	free(lista);
+	free(listb);
+	exit(0);
 }

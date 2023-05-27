@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:31:27 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 22:32:06 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:05:48 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 	int			len;
 
 	len = av_count(ac, av);
-	if (!check_input(ac, av) || (len == 1 && ac > len + 1))
+	if (!sp_nu_checker(ac, av) || !check_input(ac, av))
 	{
 		error_msg();
 		return (0);
@@ -26,9 +26,10 @@ int	main(int ac, char **av)
 	if (ac < 2 || len < 2)
 		return (0);
 	list = make_list(ac, av, len);
-	if (!list)
-		return (0);
 	if (issorting(list))
-		exit(0);
+	{
+		free_list(list);
+		return (0);
+	}
 	sorting(list);
 }

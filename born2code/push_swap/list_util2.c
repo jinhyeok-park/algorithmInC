@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:42:24 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 22:27:31 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:23:55 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	push_head(t_list_ps *list, int data)
 	if (list)
 	{
 		temp = create_node(data);
-		if (!temp)
-			return (0);
 		if (list->head)
 		{
 			(list->head)->prev = temp;
@@ -107,7 +105,7 @@ t_node	*create_node(int data)
 
 	ret = (t_node *)malloc(sizeof(t_node));
 	if (!ret)
-		return (0);
+		exit (1);
 	ret->data = data;
 	ret->next = NULL;
 	ret->prev = NULL;

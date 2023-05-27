@@ -5,155 +5,147 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/08 12:13:40 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/04/11 11:54:02 by jinhyeok         ###   ########.fr       */
+/*   Created: 2023/04/18 17:37:03 by jinhyeok          #+#    #+#             */
+/*   Updated: 2023/04/19 01:10:28 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*get_next_line(int fd)
 {
-	static t_string list;
-	char	buf[BUFFER_SIZE + 1];
-	char	*result;
-	char	*buff_temp;
-	ssize_t		temp;
+	static t_list	*list;
+	t_list			*backup;
+	char			*line;
+	int				enter_i;
 
-	result = 0;
-	buff_temp = NULL;
-	if (fd < 0)
+	if (BUFFER_SIZE < 0 || fd < 0 || read(fd, 0, 0) == -1)
+	{
+		free_list(&list, fd);
 		return (0);
-	result = get_rest(fd, &list);
-	if (result)
-	{
-		list.next = (t_string *)malloc(sizeof(t_string));
-		list = *list.next;
 	}
-	while (1)
+	line = NULL;
+	read_checklist(fd, &list);
+	enter_i = make_line(list, &line, fd);
+	backup = NULL;
+	if (enter_i != -1)
+		backup = (t_list *)malloc(sizeof(t_list));
+	clear_set(enter_i, &list, fd, backup);
+	if (!line[0])
 	{
-		temp = ft_strlen(result);
-		buff_temp = buf_read(fd, &list, result, &temp);
-		if (temp == -1)
-		{
-			free(result);
-			return (buff_temp);
-		}
-		temp = read(fd, buf, BUFFER_SIZE);
-		buf[temp] = 0;
-		buff_temp = buf_read(fd, &list, buf, &temp);
-		result = ft_strjoin(result, buff_temp);
-		if (!buff_temp || temp == -1 || !temp)
-			return (result);
+		free_list(&list, fd);
+		free(line);
+		return (NULL);
 	}
-	return (result);
+	return (line);
 }
 
-char	*buf_read(int fd, t_string *list, char *buf, ssize_t *temp)
+void	clear_set(int enter_index, t_list **list, int fd, t_list *backup)
 {
-	char	*result;
-	ssize_t	i;
-	ssize_t len_temp;
+	int		i;
+	t_list	*last_node;
 
-	if (!*temp)
-		return (0);
-	len_temp = *temp;
 	i = 0;
-	if (*temp < 0)
-		return (0);
-	while (i < len_temp)
+	if (!list)
+		return ;
+	if (backup)
 	{
-		if (buf[i++] == '\n')
-		{
-			result = buf_fill(buf, i, list, fd);
-			*temp = -1;
-			break;
-		}
+		last_node = get_last_node(*list, fd, 1);
+		backup->data = (char *)malloc(ft_strlen(last_node->data) - enter_index);
+		while (last_node->data[++enter_index])
+			backup->data[i++] = last_node->data[enter_index];
+		backup->data[i] = '\0';
+		backup->next = 0;
+		backup->fd = fd;
 	}
-	if (i == len_temp)
-		result = buf_fill(buf, i + 1, NULL, fd);
-	return (result);
+	free_list(list, fd);
+	last_node = get_last_node(*list, fd, 0);
+	if (!last_node)
+		*list = backup;
+	else
+		last_node->next = backup;
 }
 
-int	list_fill(char *buf, t_string *list, int fd)
+int	line_alloc(char **line, t_list *list, int fd)
 {
-	size_t	len;
-	size_t	i;
-	t_string *temp_list;
-
-	temp_list = list;
-	len = ft_strlen(buf);
-	i = -1;
-	if (temp_list->fd)
-	{
-		while (temp_list->next)
-			temp_list = temp_list->next;
-		temp_list->next = (t_string *)malloc(sizeof(t_string));
-		if (!temp_list->next)
-			return (-1);
-		temp_list = temp_list->next;
-	}
-	temp_list->fd = fd;
-	temp_list->data = (char *)malloc(len + 1); 
-	if (!(temp_list->data))
-		return (-1);
-	temp_list->data[len] = 0;
-	while (buf[++i])
-		temp_list->data[i] = buf[i];
-	return (1);
-}
-
-char	*buf_fill(char *buf, int len, t_string *list, int fd)
-{
+	int	len;
+	int	ret;
 	int	i;
-	int	buf_len;
-	char	*result;
 
-	i = -1;
-	buf_len = ft_strlen(buf);
-	result = (char *)malloc(len);
-	if (!result)
-		return (0);
-	while (++i + 1 < len)
-		result[i] = buf[i];
-	result[i] = 0;
-	if (buf_len != len && list)
-		list_fill(buf + len, list, fd);
-	return (result);
-}
-
-char	*get_rest(int fd, t_string *list)
-{
-	size_t	len;
-	size_t	i;
-	t_string *temp;
-	char	*str;
-	char	*result;
-
-	temp = list;
-	str = 0;
-	if (!(temp->fd))
-		return (0);
-	while (temp)
+	len = 0;
+	ret = -1;
+	while (list)
 	{
-		if (temp->fd == fd)
+		i = 0;
+		while (list->fd == fd && list->data[i])
+		{
+			if (list->data[i] == '\n')
 			{
-				str = temp->data;
-				break;
+				len++;
+				ret = i;
+				break ;
 			}
-		temp = temp->next;
+			len++;
+			i++;
+		}
+		list = list->next;
 	}
-	if (!str)
-		return (0);
-	i = -1;
-	len = ft_strlen_except(str);
-	result = (char *)malloc(len + 1);
-	if (!result)
-		return (0);
-	result[len] = 0;
-	while (++i < len)
-		result[i] = str[i];
-	return (result);
+	*line = (char *)malloc(len + 1);
+	(*line)[len] = '\0';
+	return (ret);
 }
 
+int	make_line(t_list *list, char **line, int fd)
+{
+	int	enter_index;
+	int	i;
+	int	j;
+
+	j = 0;
+	enter_index = line_alloc(line, list, fd);
+	if (!*line)
+		return (-1);
+	while (list)
+	{
+		i = 0;
+		while (list->fd == fd && list->data[i])
+		{
+			if (list->data[i] == '\n')
+			{
+				(*line)[j] = list->data[i];
+				break ;
+			}
+			(*line)[j] = list->data[i++];
+			j++;
+		}
+		list = list->next;
+	}
+	return (enter_index);
+}
+
+void	add_list(t_list **list, char *buff, ssize_t read_size, int fd)
+{
+	ssize_t	i;
+	t_list	*last_node;
+	t_list	*new_node;
+
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (!new_node)
+		return ;
+	new_node->next = NULL;
+	new_node->fd = fd;
+	new_node->data = (char *)malloc(read_size + 1);
+	if (!new_node->data)
+		return ;
+	i = -1;
+	while (buff[++i] && i < read_size)
+		new_node->data[i] = buff[i];
+	new_node->data[i] = '\0';
+	if (!*list)
+	{
+		*list = new_node;
+		return ;
+	}
+	last_node = get_last_node(*list, fd, 0);
+	last_node->next = new_node;
+}

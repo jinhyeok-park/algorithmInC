@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:35:15 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 22:26:58 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:20:21 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list_ps	*create_list(void)
 
 	list = (t_list_ps *)malloc(sizeof(t_list_ps));
 	if (!list)
-		return (0);
+		exit (1);
 	list->head = NULL;
 	list->tail = NULL;
 	list->size = 0;
@@ -35,4 +35,5 @@ void	free_list(t_list_ps *list)
 		list->head = list->head->next;
 		free(throw);
 	}
+	free(list);
 }

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:24:01 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/04/19 01:31:03 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:58:29 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -29,7 +29,7 @@ typedef struct s_list
 
 size_t	ft_strlen(char *str);
 char	*get_next_line(int fd);
-void	free_list(t_list **list, int fd);
+void	free_list2(t_list **list, int fd);
 int		line_alloc(char **line, t_list *list, int fd);
 int		make_line(t_list *list, char **line, int fd);
 void	read_checklist(int fd, t_list **list);

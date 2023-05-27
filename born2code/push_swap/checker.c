@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 19:34:20 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/23 09:25:30 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:55:57 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 	int			len;
 
 	len = av_count(ac, av);
-	if (!check_input(ac, av) || (len == 1 && ac > len + 1))
+	if (!sp_nu_checker(ac, av) || !check_input(ac, av))
 	{
 		error_msg();
 		return (0);
@@ -26,10 +26,6 @@ int	main(int ac, char **av)
 	if (ac < 2 || len < 2)
 		return (0);
 	list = make_list(ac, av, len);
-	if (!list)
-		return (0);
-	if (issorting(list))
-		exit(0);
 	get_next_start(list);
 }
 
@@ -39,17 +35,18 @@ void	get_next_start(t_list_ps *lista)
 	char		*temp;
 
 	listb = create_list();
-	if (!listb)
-		exit(0);
 	while (1)
 	{
 		temp = get_next_line(0);
 		if (temp == 0)
 		{
 			check_sort(lista, listb);
+			free_list(lista);
+			free_list(listb);
 			exit(0);
 		}
 		do_command(temp, lista, listb);
+		free(temp);
 	}
 }
 
@@ -110,8 +107,5 @@ void	do_command_2(char *temp, t_list_ps *lista, t_list_ps *listb)
 		rrb(listb, 0);
 	}
 	else
-	{
-		error_msg();
-		exit(1);
-	}
+		iserror(temp, lista, listb);
 }

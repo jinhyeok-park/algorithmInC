@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:49:24 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 21:57:41 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/25 19:43:28 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	make_tri(t_list_ps *lista, t_list_ps *listb, int idx, int dep)
 		make_tri2(lista, listb, arr);
 				mirror--;
 	}
+	free(sort_size);
 }
 
 void	make_tri2(t_list_ps *lista, t_list_ps *listb, int *arr)

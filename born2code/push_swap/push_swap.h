@@ -6,21 +6,14 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:54:09 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 22:44:38 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:55:03 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <limits.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-
-# ifndef BUFFER_SZIE
-#  define BUFFER_SIZE 8
-# endif
+# include "get_next_line.h"
 
 typedef struct s_node
 {
@@ -35,6 +28,8 @@ typedef struct s_list_ps
 	t_node	*tail;
 	int		size;
 }	t_list_ps;
+//push_swap.c
+int			sp_nu_checker(int ac, char **av);
 
 //check_input.c
 int			check_input(int ac, char **av);
@@ -47,6 +42,7 @@ int			check_dup(long long *new_av, int len);
 int			check_isdigit(int ac, char **av);
 int			check_self(long long *new_av, long long cur, int idx);
 int			check_intmax(long long *temp, int len);
+void		freeall(char **s);
 
 //utils.c
 void		error_msg(void);
@@ -187,5 +183,6 @@ int			ft_strcmp(char *s1, char *s2);
 void		get_next_start(t_list_ps *lista);
 void		check_sort(t_list_ps *lista, t_list_ps *listb);
 void		do_command_2(char *temp, t_list_ps *lista, t_list_ps *listb);
+void		iserror(char *temp, t_list_ps *lista, t_list_ps *listb);
 
 #endif

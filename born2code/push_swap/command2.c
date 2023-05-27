@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:36:47 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 21:46:19 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:39:26 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	sa(t_list_ps *list, int flag)
 			data2 = (list->head->next)->data;
 			pop_head(list);
 			pop_head(list);
-			if (!push_head(list, data1) || !push_head(list, data2))
-				return (0);
+			push_head(list, data1);
+			push_head(list, data2);
 			if (flag)
 				write(1, "sa\n", 3);
 			return (1);
@@ -48,8 +48,8 @@ int	sb(t_list_ps *list, int flag)
 			data2 = (list->head->next)->data;
 			pop_head(list);
 			pop_head(list);
-			if (!push_head(list, data1) || !push_head(list, data2))
-				return (0);
+			push_head(list, data1);
+			push_head(list, data2);
 			if (flag)
 				write(1, "sb\n", 3);
 			return (1);
@@ -68,10 +68,10 @@ int	pa(t_list_ps *lista, t_list_ps *listb, int flag)
 	{
 		data = listb->head->data;
 		pop_head(listb);
-		if (!push_head(lista, data))
-			return (0);
+		push_head(lista, data);
 		if (flag)
 			write(1, "pa\n", 3);
+		return (1);
 	}
 	return (0);
 }
@@ -84,8 +84,7 @@ int	pb(t_list_ps *lista, t_list_ps *listb, int flag)
 	{
 		data = lista->head->data;
 		pop_head(lista);
-		if (!push_head(listb, data))
-			return (0);
+		push_head(listb, data);
 		if (flag)
 			write(1, "pb\n", 3);
 	}

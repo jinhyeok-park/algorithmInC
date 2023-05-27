@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 21:23:48 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 21:51:38 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:27:14 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	*get_triangle(int depth, int size)
 
 	tri_size = ft_pow(3, depth);
 	ret = (int *)malloc(sizeof(int) * tri_size);
+	if (!ret)
+		exit(1);
 	ret[0] = size;
 	arr_size = 1;
 	while (depth--)

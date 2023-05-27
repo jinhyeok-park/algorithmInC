@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:53:55 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/22 22:06:18 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/25 20:41:13 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	check_input(int ac, char **av)
 		return (0);
 	len = av_count(ac, av);
 	new_av = make_new_av(ac, av);
-	if (!new_av)
-		return (0);
 	if (!check_dup(new_av, len) || !check_intmax(new_av, len))
 	{
 		free(new_av);
@@ -39,7 +37,7 @@ int	check_intmax(long long *new_av, int len)
 	i = 0;
 	while (i < len)
 	{
-		if (new_av[i] > INT_MAX || new_av[i] < INT_MIN)
+		if (new_av[i] > 2147483647 || new_av[i] < -2147483648)
 			return (0);
 		i++;
 	}
@@ -49,25 +47,13 @@ int	check_intmax(long long *new_av, int len)
 int	check_dup(long long *new_av, int len)
 {
 	int	i;
-	int	is_sorted;
 
 	i = 0;
-	is_sorted = 1;
 	while (i < len)
 	{
 		if (!check_self(new_av, new_av[i], i))
 			return (0);
-		if (is_sorted)
-		{
-			if (new_av[i] > new_av[i + 1])
-				is_sorted = 0;
-		}
 		i++;
-	}
-	if (is_sorted)
-	{
-		free(new_av);
-		exit(0);
 	}
 	return (1);
 }
@@ -84,13 +70,16 @@ long long	*make_new_av(int ac, char **av)
 	k = 0;
 	ret = (long long *)malloc(sizeof(long long) * av_count(ac, av));
 	if (!ret)
-		return (0);
+		exit(1);
 	while (++i < ac)
 	{
 		temp = ft_split(av[i], ' ');
+		if (!temp)
+			exit(1);
 		j = -1;
 		while (temp[++j])
 			ret[k++] = ft_atoll(temp[j]);
+		freeall(temp);
 	}
 	return (ret);
 }
