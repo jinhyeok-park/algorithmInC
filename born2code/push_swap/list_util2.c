@@ -6,7 +6,7 @@
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:42:24 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/05/25 21:23:55 by jinhyeok         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:19:18 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,21 @@ void	pop_tail(t_list_ps *list)
 
 	if (list)
 	{
+		if (list->size == 1)
+		{
+			free(list->tail);
+			list->head = NULL;
+			list->tail = NULL;
+		}
 		if (list->tail)
 		{
 			temp = list->tail;
 			list->tail = temp->prev;
 			list->tail->next = list->head;
 			list->head->prev = list->tail;
-			list->size--;
 			free(temp);
 		}
+		list->size--;
 	}
 }
 
