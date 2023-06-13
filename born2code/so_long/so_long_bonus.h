@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-#define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+#define SO_LONG_BONUS_H
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include "./mlx/mlx.h"
 #include "./ft_printf/ft_printf.h"
+#include <time.h>
 
 typedef struct s_game
 {
@@ -31,15 +32,23 @@ typedef struct s_game
 	int		collected_coin;
 	int		is_accessible;
 	int		accessible_coin;
+	int		player_direction;
+	int		frame;
+	int		enemy_count;
+	int		enemy_frame;
+	int		is_defeat;
 	void	*mlx;
 	void	*mlx_window;
 	int		player_position[2];
 	int     portal_position[2];
+	int     enemy_position[10];
 	void	*img_wall;
 	void	*img_black;
 	void	*img_coin;
 	void	*img_portal;
-	void	*img_player;
+	void	*img_player[8];
+	void	*img_enemy;
+	void	*img_die;
 }   t_game;
 
 //map_checker.c
@@ -79,7 +88,7 @@ void	init_map(char **map, int height, int width);
 
 //free.c
 void	free_game(t_game **game);
-void	free_map(char **map);
+void	free_map(char **map, int height);
 
 //error.c
 void	error_msg(int num);
@@ -97,5 +106,23 @@ int     get_player_posi(t_game **game);
 int     get_portal_posi(t_game **game);
 
 
+int	player_direction(int keycode, t_game **game);
+void	player_move_bo(t_game **game);
+int		game_loop(t_game **game);
+void	fram_move(int x, int y, void **sprite_img, int sprite_count, t_game *game);
+void	draw_player_img(int direction, t_game *game);
 //line checker
+
+//enemy
+void	enemy_random_generation(t_game **game);
+int		get_random_number(int range);
+void	enemy_move_position(int x, int y, t_game **game, int enemy_index);
+void	enemy_rand_move(t_game **game);
+void	background_set(int x, int y, t_game **game);
+void	monster_level(int steps, t_game **game);
+void	collision_checker(t_game **game);
+void	game_defeat(t_game **game);
+void	ft_sleep(int count);
+void	is_over(t_game **game);
+void	steps_display(t_game **game);
 #endif

@@ -1,38 +1,48 @@
-#include "./mlx/mlx.h"
+#include "so_long_bonus.h"
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+int		update_display(t_game *game);
+
+int		main(void)
 {
-	char	*dst;
+	t_game	*game;
+	int		img_width;
+	int		img_height;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	game = (t_game *)malloc(sizeof(t_game));
+	if (!game)
+		return (1);
+
+	game->mlx = mlx_init();
+	game->mlx_window = mlx_new_window(game->mlx, 200, 200, "Test");
+
+	// Load images
+	game->img_player[0] = mlx_xpm_file_to_image(game->mlx, "./textures/t1.xpm", &img_width, &img_height);
+	game->img_player[1] = mlx_xpm_file_to_image(game->mlx, "./textures/t2.xpm", &img_width, &img_height);
+	game->img_black = mlx_xpm_file_to_image(game->mlx, "./textures/black.xpm", &img_width, &img_height);
+
+	mlx_loop_hook(game->mlx, update_display, game);
+	mlx_loop(game->mlx);
 }
 
-int	main(void)
+int		update_display(t_game *game)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
+	static int	frame = 0;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	img.img = mlx_new_image(mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	//my_mlx_pixel_put(&img, 5, 2, 0x00FF0000);
-	for(int i = 0; i < 100 ; i++) {
-		my_mlx_pixel_put(&img, i, i, 0x00FF0000);// 붉은색 선을 대각선으로 그린다.
-		my_mlx_pixel_put(&img, 5, i, 0x00FF0000);// 붉은색 선을 세로으로 그린다.
-		my_mlx_pixel_put(&img, i, 5, 0x00FF0000);// 붉은색 선을 가로으로 그린다.
-	}
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	// Clear the window
+	//mlx_clear_window(game->mlx, game->mlx_window);
+
+	// Display the appropriate image sprite based on the frame
+	mlx_put_image_to_window(game->mlx, game->mlx_window, game->img_black, 10, 10);
+	if (frame == 0)
+		mlx_put_image_to_window(game->mlx, game->mlx_window, game->img_player[0], 10, 10);
+    else if (frame == 3)
+		 mlx_put_image_to_window(game->mlx, game->mlx_window, game->img_player[1], 10, 10);
+
+	// Increment the frame counter
+	frame++;
+	if (frame == 10)
+		frame = 0;
+
+	return (0);
 }

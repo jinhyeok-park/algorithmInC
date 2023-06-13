@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mapchecker.c                                       :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhyeok <jinhyeok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 19:23:18 by jinhyeok          #+#    #+#             */
-/*   Updated: 2023/04/26 20:21:54 by jinhyeok         ###   ########.fr       */
+/*   Created: 2023/06/11 15:37:49 by jinhyeok          #+#    #+#             */
+/*   Updated: 2023/06/13 12:57:13 by jinhyeok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
-t_map *map_maker(char *map_name)
+int main(int ac, char **av)
 {
-	t_map	*map;
+	t_game	*game;
+	char	**map;
 
-	map = NULL;
-	if (map_errorcheck(map_name))
+	if (ac != 2)
 	{
-		map = (t_map *)malloc(sizeof(t_map *));
-		if(create_map(map_name, &map))
-			return (NULL);
+		error_msg(8);
+		exit(1);
 	}
-	return (map);
-}
-
-size_t map_errorcheck(char *map_name)
-{
-
-
-}
-
-int	head_tail_line_checker(char *line)
-{
-
+	game = (t_game *)malloc(sizeof(t_game));
+	if (!game)
+		return (0);
+	map_init_size(&game);
+	map = map_checker(av, &game);
+	if (!map)
+	{
+		free_game(&game);
+		return (0);
+	}
+	map_init1(&game);
+	game_start(&game);
+	return (0);
 }

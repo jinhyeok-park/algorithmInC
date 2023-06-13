@@ -30,7 +30,6 @@ typedef struct s_game
 	int		collectable_coin;
 	int		collected_coin;
 	int		is_accessible;
-	int		accessible_coin;
 	void	*mlx;
 	void	*mlx_window;
 	int		player_position[2];
